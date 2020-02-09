@@ -1,4 +1,4 @@
-setwd("PONER DIRECCION AQUI!")
+setwd("PONER DIRECCIÓN AQUI!")
 movies <- read.csv("tmdb-movies.csv")
 
 # Se importa librearía para hacer tests de nomralizacion
@@ -76,13 +76,21 @@ getmode <- function(v) {
 }
 topGenre20 <- getmode(genres20)
 
+# Resultados en orden descendiente:
+genres20Decreasing <- table(genres20)
+genres20Decreasing <- genres20Decreasing[order(genres20Decreasing, decreasing = TRUE)]
+
+# Visualizción de la tabla
+plot(genres20Decreasing)
+
+
 # 4.7 Genero que predomina
 totalGenres <- unlist(strsplit(as.character(movies$genres), "\\|"))
 barplot(table(totalGenres))
 
 # 4.8 En las peliculas de mayor ganancia, cual es el genero principal
 genresTopRevenue <- topRevenueMovies[1:10,c("genres")]
-genresTopRevenueNew <- unlist(strsplit(as.character(genresTopRevenue), "\\|"))
+genresgenresTopRevenueNew <- unlist(strsplit(as.character(genresTopRevenue), "\\|"))
 barplot(table(genresTopRevenueNew))
 
 # 4.9 En las peliculas de mayor presupuesto, cual es el genero principal
