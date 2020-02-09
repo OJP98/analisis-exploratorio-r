@@ -1,4 +1,4 @@
-setwd("C:/Users/Usuario/Desktop/UVG/Semestre7/DataMining/HT1")
+setwd("PONER DIRECCION AQUI!")
 movies <- read.csv("tmdb-movies.csv")
 
 # Se importa librearía para hacer tests de nomralizacion
@@ -66,6 +66,8 @@ moviesPerYear <- table(movies$release_year)
 barplot(moviesPerYear)
 
 # 4.6 Genero principal de las películas más populares
+
+# ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
 popularMoviesTable <- table(popularMovies$genres)
 popularMoviesGenre <- popularMoviesTable[order(popularMoviesTable, decreasing = TRUE)]
