@@ -4,6 +4,10 @@ movies <- read.csv("tmdb-movies.csv")
 # Se importa librearía para hacer tests de nomralizacion
 library(nortest)
 
+# Se importa librería para que el gráfico de correlación muestre el coeficiente
+install.packages("ggpubr")
+library("ggpubr")
+
 # Variables cuantitativas:
 
 # 1. Popularidad
@@ -103,7 +107,13 @@ highlyVoted <- movies[order(movies$vote_average, decreasing = TRUE),]
 newHighlyVoted <- highlyVoted[highlyVoted$director != "",]
 top20Directors <- newHighlyVoted[1:20,c("director", "original_title", "vote_average")]
 
-# 4.11
+# 4.11 Correlacion entre presupuesto e ingreso
+ggscatter(movies, x = "budget", y = "revenue", 
+          add = "reg.line", add.params = list(color="red"),
+          conf.int = TRUE, cor.coef = TRUE, cor.method = "pearson",
+          xlab = "Presupuesto", ylab = "Ingresos",
+          color = "dark grey", shape = 19,
+          title = "Correlacion entre presupuesto e ingreso")
 
 # ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
