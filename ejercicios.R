@@ -66,6 +66,24 @@ moviesPerYear <- table(movies$release_year)
 barplot(moviesPerYear)
 
 # 4.6 Genero principal de las películas más populares
+popularMovies <- movies[order(movies$popularity,decreasing = TRUE),]
+popular20Movies <- popularMovies[1:20,c("genres")]
+genres20 <- unlist(strsplit(as.character(popular20Movies), "\\|"))
+# # # Funcion para obtener la moda
+getmode <- function(v) {
+  uniqv <- unique(v)
+  uniqv[which.max(tabulate(match(v, uniqv)))]
+}
+topGenre20 <- getmode(genres20)
+
+# 4.7 Genero que predomina
+totalGenres <- unlist(strsplit(as.character(movies$genres), "\\|"))
+barplot(table(totalGenres))
+
+# 4.10 20 mejores directores con peliculas altamente calificadas
+highlyVoted <- movies[order(movies$vote_average, decreasing = TRUE),]
+newHighlyVoted <- highlyVoted[highlyVoted$director != "",]
+top20Directors <- newHighlyVoted[1:20,c("director", "original_title", "vote_average")]
 
 # ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
