@@ -90,7 +90,7 @@ barplot(table(totalGenres))
 
 # 4.8 En las peliculas de mayor ganancia, cual es el genero principal
 genresTopRevenue <- topRevenueMovies[1:10,c("genres")]
-genresgenresTopRevenueNew <- unlist(strsplit(as.character(genresTopRevenue), "\\|"))
+genresTopRevenueNew <- unlist(strsplit(as.character(genresTopRevenue), "\\|"))
 barplot(table(genresTopRevenueNew))
 
 # 4.9 En las peliculas de mayor presupuesto, cual es el genero principal
