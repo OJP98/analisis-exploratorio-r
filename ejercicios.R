@@ -80,10 +80,22 @@ topGenre20 <- getmode(genres20)
 totalGenres <- unlist(strsplit(as.character(movies$genres), "\\|"))
 barplot(table(totalGenres))
 
+# 4.8 En las peliculas de mayor ganancia, cual es el genero principal
+genresTopRevenue <- topRevenueMovies[1:10,c("genres")]
+genresTopRevenueNew <- unlist(strsplit(as.character(genresTopRevenue), "\\|"))
+barplot(table(genresTopRevenueNew))
+
+# 4.9 En las peliculas de mayor presupuesto, cual es el genero principal
+genresTopBudget <- topBudgetMovies[1:10,c("genres")]
+genresTopBudgetNew <- unlist(strsplit(as.character(genresTopBudget), "\\|"))
+barplot(table(genresTopBudgetNew))
+
 # 4.10 20 mejores directores con peliculas altamente calificadas
 highlyVoted <- movies[order(movies$vote_average, decreasing = TRUE),]
 newHighlyVoted <- highlyVoted[highlyVoted$director != "",]
 top20Directors <- newHighlyVoted[1:20,c("director", "original_title", "vote_average")]
+
+# 4.11
 
 # ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
