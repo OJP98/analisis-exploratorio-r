@@ -115,6 +115,24 @@ ggscatter(movies, x = "budget", y = "revenue",
           color = "dark grey", shape = 19,
           title = "Correlacion entre presupuesto e ingreso")
 
+# 4.12 ¿Se asocian ciertos meses de lanzamiento con mejores ingresos?
+
+
+# 4.13 ¿En qué meses se han visto los lanzamientos máximos?
+
+
+# 4.14 ¿Cómo se correlacionan las calificaciones con el éxito comercial?
+ggscatter(movies, x = "popularity", y = "revenue",
+          add = "reg.line", add.params =  list(color="red"),
+          conf.int = TRUE, cor.coef = TRUE, cor.method = "pearson",
+          xlab = "calificación", ylab = "éxito comercial", 
+          color = "dark grey", shape = 19,
+          title = "Correlacion entre calificaciones y el éxito comercial")
+
+# 4.15 ¿A qué género principal pertenecen las películas más largas?
+
+
+
 # ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
 popularMoviesTable <- table(popularMovies$genres)
