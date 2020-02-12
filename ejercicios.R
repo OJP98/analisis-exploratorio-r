@@ -43,10 +43,33 @@ ad.test(movies$vote_average)
 
 
 # Variables cualitativas
-table(movies$vote_average)
-hist(movies$vote_average)
+
+# Año de lanzamiento
 table(movies$release_year)
 hist(movies$release_year)
+
+# Actores (elenco)
+castVector <- movies$cast
+individualCast <- unlist(strsplit(as.character(movies$cast), "\\|"))
+individualCast <- table(individualCast)
+individualCast <- individualCast[order(individualCast, decreasing = TRUE)]
+plot(head(individualCast,10))
+
+# Director
+directors <- movies$director
+individualDirectors <- table(unlist(strsplit(as.character(directors), "\\|")))
+individualDirectors <- individualDirectors[order(individualDirectors, decreasing = TRUE)]
+plot(head(individualDirectors,10))
+
+# Keywords
+kwords <- table(unlist(strsplit(as.character(movies$keywords), "\\|")))
+kwords <- kwords[order(kwords, decreasing = TRUE)]
+plot(head(kwords,10))
+
+# Production companies
+pc <- table(unlist(strsplit(as.character(movies$production_companies), "\\|")))
+pc <- pc[order(pc, decreasing = TRUE)]
+plot(head(pc,8))
 
 
 # 4.1 10 películas con más presupuesto
