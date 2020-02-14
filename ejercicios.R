@@ -149,8 +149,19 @@ ggscatter(movies, x = "budget", y = "revenue",
           title = "Correlacion entre presupuesto e ingreso")
 
 # 4.12 ¿Se asocian ciertos meses de lanzamiento con mejores ingresos?
-meses <- aggregate(movies$revenue, by=list(release_date), FUN=sum)
+meses <- aggregate(movies$revenue, by=list(movies$release_date), FUN=sum)
+colnames(meses)<-c("Fecha","Cantidad")
+meses$mes<-month(as.Date(meses$Fecha, "%m/%d/%y"))
+View(meses[
+  order(meses[,3]),
+])
+meses <- aggregate(meses$Cantidad, by=list(meses$mes), FUN=sum)
 View(meses)
+
+
+mesess <- data.frame(as.Date(meses$Group.1, "%m/%d/%y"), meses$x)
+hist(mesess[1:50], c("mesess$as.Date.meses.Group.1....m..d..y..", "mesess$meses.x"))
+View(mesesTable)
 
 # 4.13 ¿En qué meses se han visto los lanzamientos máximos?
 lazamientos_Maximos <- month(as.POSIXlt(movies$release_date, format="%m/%d/%Y"))
