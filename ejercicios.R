@@ -8,6 +8,14 @@ library(nortest)
 install.packages("ggpubr")
 library("ggpubr")
 
+# Se importa libreria para poner manipular mejor las fechas
+library("lubridate")
+
+
+# Se importa libreria para manipular los datos
+library(dplyr)
+
+
 # Variables cuantitativas:
 
 # 1. Popularidad
@@ -141,10 +149,12 @@ ggscatter(movies, x = "budget", y = "revenue",
           title = "Correlacion entre presupuesto e ingreso")
 
 # 4.12 ¿Se asocian ciertos meses de lanzamiento con mejores ingresos?
-
+meses <- aggregate(movies$revenue, by=list(release_date), FUN=sum)
+View(meses)
 
 # 4.13 ¿En qué meses se han visto los lanzamientos máximos?
-
+lazamientos_Maximos <- month(as.POSIXlt(movies$release_date, format="%m/%d/%Y"))
+table(lazamientos_Maximos)
 
 # 4.14 ¿Cómo se correlacionan las calificaciones con el éxito comercial?
 ggscatter(movies, x = "popularity", y = "revenue",
@@ -155,8 +165,34 @@ ggscatter(movies, x = "popularity", y = "revenue",
           title = "Correlacion entre calificaciones y el éxito comercial")
 
 # 4.15 ¿A qué género principal pertenecen las películas más largas?
+peli_largas <- movies[, c("original_title", "genres", "runtime")]
+peli_largas <- arrange(peli_largas, -runtime)
+peli_largas <- peli_largas[1:50,]
+peli_largas <- peli_largas[, c("genres")]
+peli_largas <- as.data.frame(table(unlist(strsplit(as.character(peli_largas), "\\|"))))
+peli_largas <- arrange(peli_largas, -Freq)
+View(peli_largas)
 
+# 5. Puntos Extra:
+# 5.1 ¿La pelicula mas larga que tenga peor rating?
+mas_larga <- head(movies[order(-runtime),],50)
+mas_larga_rated <- head(mas_larga[order(mas_larga$popularity),],5)
+View(mas_larga_rated)
 
+# 5.2 ¿La pelicula con mas ganancia y con peor rating?
+mayor_ganancia <- head(movies[order(-revenue),],25)
+peor_rating <- mayor_ganancia[order(mayor_ganancia$popularity),]
+View(peor_rating)
+
+# 5.3 ¿La  película con el peor rating del director que tiene más películas?
+directores <- table(movies$director)
+directores <- as.data.frame(directores)
+cantidad_directores <-directores[order(-directores$Freq),]
+View(cantidad_directores)
+
+peliculas_Woody <- movies[movies$director == "Woody Allen", c("original_title", "popularity")]
+peor_pelicula_Woody <- head(peliculas_Woody[order(peliculas_Woody$popularity),],10)
+View(peor_pelicula_Woody)
 
 # ESTABA HACIENDO UNOS EXPERIMENTOS.... A LO MEJOR ALGO DE AQUÍ SIRVE
 popularMovies <- movies[order(movies$vote_average),]
